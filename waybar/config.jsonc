@@ -1,1 +1,164 @@
+// ~/.config/waybar/config.jsonc
+// A macOS-style top menu bar for Hyprland + Waybar
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "margin-top": 0,
+  "margin-bottom": 0,
+  "margin-left": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "reload_style_on_change": true,
 
+  // ---- Layout: mac has app stuff on the left, status icons on the right ----
+  "modules-left": [
+    "custom/appmenu",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "tray",
+    "custom/separator",
+    "group/quicksettings",
+    "custom/separator",
+    "battery",
+    "clock#date"
+  ],
+
+  // ---- Left: fake "Apple menu" button ----
+  "custom/appmenu": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "wlogout || wofi --show drun",
+    "on-click-right": "hyprctl dispatch exec '[float] wofi --show drun'"
+  },
+
+  // ---- Left: workspaces styled as small Mission-Control-like dots ----
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "active-only": false,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "format-icons": {
+      "default": "●",
+      "active": "●",
+      "urgent": "●"
+    }
+  },
+
+  // ---- Left: active window title ----
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 40,
+    "separate-outputs": true,
+    "rewrite": {
+      "": "Desktop"
+    }
+  },
+
+  // ---- Center: big clock ----
+  "clock": {
+    "format": "{:%a %b %d  %I:%M %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffffff'><b>{}</b></span>",
+        "days": "<span color='#dddddd'>{}</span>",
+        "weekdays": "<span color='#8c8c8c'><b>{}</b></span>",
+        "today": "<span color='#ff5f57'><b>{}</b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  // ---- Right: secondary small date module ----
+  "clock#date": {
+    "format": "{:%H:%M}",
+    "tooltip": false
+  },
+
+  // ---- Right: system tray ----
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+
+  // ---- Right: grouped quick-settings ----
+  "group/quicksettings": {
+    "orientation": "horizontal",
+    "modules": [
+      "network",
+      "bluetooth",
+      "pulseaudio",
+      "pulseaudio#microphone"
+    ]
+  },
+
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}",
+    "on-click": "nm-connection-editor"
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂯",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "scroll-step": 5
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "pavucontrol"
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "states": {
+      "warning": 25,
+      "critical": 10
+    },
+    "tooltip-format": "{timeTo}"
+  },
+
+  "custom/separator": {
+    "format": "|",
+    "tooltip": false
+  }
+}
