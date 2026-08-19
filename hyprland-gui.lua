@@ -3,6 +3,7 @@
 -- Settings
 hl.config({
     decoration = {
+        dim_inactive = false,
         rounding = 0,
     },
     general = {
@@ -15,3 +16,15 @@ hl.config({
         vrr = 1,
     },
 })
+
+-- Animations
+hl.animation({
+    leaf = "borderangle",
+    enabled = true,
+    speed = 1.0,
+    bezier = "default",
+})
+
+-- Keybinds
+hl.unbind("ALT + W")
+hl.bind("ALT + W", hl.dsp.exec_cmd("zen-browser"))
