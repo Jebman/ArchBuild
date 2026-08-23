@@ -32,7 +32,7 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal = "kitty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 local menu = "hyprlauncher"
 
 -------------------
@@ -49,6 +49,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("nm-applet")
 	hl.exec_cmd("waybar & hyprpaper ")
 	hl.exec_cmd("vicinae server")
+	hl.exec_cmd("nwg-dock-hyprland")
+	hl.exec_cmd("hyprsunset -t 6500")
 end)
 
 -------------------------------
@@ -265,11 +267,11 @@ hl.bind(
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + P", hl.dsp.window.pin({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+-- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
-hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("vicinae toggle"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -296,6 +298,11 @@ hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+-- Application Specific Binds
+hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("vicinae toggle"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("waynote new"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("waynote toggle"))
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(

@@ -28,3 +28,4 @@ hl.animation({
 -- Keybinds
 hl.unbind("ALT + W")
 hl.bind("ALT + W", hl.dsp.exec_cmd("zen-browser"))
+hl.bind("XF86Tools", hl.dsp.exec_cmd("hyprmod"))
